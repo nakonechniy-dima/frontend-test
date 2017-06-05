@@ -1,4 +1,7 @@
 <?php
+//check locations
+$locations = get_locale();
+if ($locations != is_rtl()){
 //move up add to cart form on single product page
 remove_action( 'woocommerce_single_product_summary','woocommerce_template_single_add_to_cart', 30 );
 add_action( 'woocommerce_single_product_summary','woocommerce_template_single_add_to_cart', 10 );
@@ -11,7 +14,7 @@ add_action( 'woocommerce_single_product_summary','woocommerce_template_single_ra
 
 //delete category block on single product page
 remove_action( 'woocommerce_single_product_summary','woocommerce_template_single_meta', 40 );
-
+}
 
 
 
@@ -52,8 +55,6 @@ add_action('init', 'book_init');
 
 
 //register new taxonomy
-
-add_action('init', 'create_taxonomy');
 function create_taxonomy(){
 
     register_taxonomy('taxonomy', array('book'), array(
@@ -88,3 +89,16 @@ function create_taxonomy(){
         'show_in_quick_edit'    => null,
     ) );
 }
+add_action('init', 'create_taxonomy');
+
+
+
+//fix brackets on rtl
+function rtl_brackets_fix($content){
+    if(is_rtl()){
+        $content = preg_replace('#<p>([^<]+)\)\s*</p>#','<p>$1)&#x200E;</p>',$content);
+        $content = preg_replace('#<p>\s*\(([^<]+)</p>#','<p>&#x200E;($1</p>',$content);
+    }
+    return $content;
+}
+add_filter('the_content' , 'rtl_brackets_fix' ,100 ,1);
