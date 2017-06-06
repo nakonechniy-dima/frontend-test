@@ -594,3 +594,7 @@ a.remove {
 .right-site-info {
 	float: left;
 }
+
+*:after {
+content: "\200E‎";
+}
