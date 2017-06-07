@@ -11,6 +11,7 @@ https://codex.wordpress.org/Right-to-Left_Language_Support
 
 /* Reset */
 
+
 body {
 	direction: rtl;
 	unicode-bidi: embed;
@@ -595,6 +596,25 @@ a.remove {
 	float: left;
 }
 
+h1, h2, h3, h4{
+	direction: rtl !important;
+}
+
+
 *:after {
 content: "\200E‎";
+}
+
+/*.star-rating span{*/
+	/*right: 2px !important;*/
+    /*!*float: right !important;*!*/
+	/*transform: scale(-1, 1);*/
+/*}*/
+
+.star-rating span {
+	right: 2px !important;
+}
+
+.star-rating span::before {
+	right: 0;
 }
